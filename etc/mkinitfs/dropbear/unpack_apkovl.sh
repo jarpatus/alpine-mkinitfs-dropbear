@@ -47,7 +47,13 @@ unpack_apkovl() {
 
 unpack_apkovl_dropbear() {
         if [ ! -f /run/dropbear.pid ]; then
-                # we are ran by init - set password and spawn dropbear 
+                # we are ran by init - configure authentication and spawn dropbear 
+                if [ -s /etc/mkinitfs/dropbear/authorized_keys ]; then
+                        mkdir -p /root/.ssh
+                        chmod 0700 /root/.ssh
+                        cp /etc/mkinitfs/dropbear/authorized_keys /root/.ssh
+                        chmod 0600 /root/.ssh/authorized_keys
+                fi
                 if [ -s /etc/mkinitfs/dropbear/passwd ]; then
                         local pass=`cat /etc/mkinitfs/dropbear/passwd`
 			printf "%s\n%s\n" "$pass" "$pass" | passwd
