@@ -36,3 +36,7 @@ chmod 0600 /etc/mkinitfs/authorized_keys
 ## Create initramfs
 * Create a new initramfs: ```mkinitfs -t /opt/mkinitfs/tmp -k -o /boot/initramfs-dropbear```
 * Reboot
+
+# Problems
+* If ip=xxx kerlen option is added then init script won't work with local package cache anymore and everything goes south. As a workround we bring up network by ourselved but then only DHCP does work... Have had no time to figure out this yet.
+* Randomly after decryption boot halts when openrc tries to load modules for hardware. This happens only with this patch so it must be related to network modules already being loaded or so.
