@@ -1,0 +1,25 @@
+--- initramfs-init.org
++++ initramfs-init
+@@ -485,6 +485,7 @@
+ 	cryptroot
+ 	dasd
+ 	debug_init
++        dropbear
+ 	ds
+ 	init
+ 	init_args
+@@ -839,7 +840,13 @@
+ 	# create apk db and needed /dev/null and /tmp first
+ 	apk add --root $sysroot --initdb --quiet
+ 
+-	unpack_apkovl "$ovl" $sysroot
++	if [ -n "$KOPT_dropbear" ]; then
++                configure_ip
++                . /etc/mkinitfs/dropbear/unpack_apkovl.sh
++        else
++                unpack_apkovl "$ovl" $sysroot
++        fi
++
+ 	eend $? $errstr || ovlfiles=
+ 	# hack, incase /root/.ssh was included in apkovl
+ 	[ -d "$sysroot/root" ] && chmod 700 "$sysroot/root"
