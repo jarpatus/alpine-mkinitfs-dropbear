@@ -34,5 +34,5 @@ chmod 0600 /etc/mkinitfs/authorized_keys
 * Change initrd to initramfs-dropbea instead of initramfs-lts
 
 ## Create initramfs
-* Create a new initramfs: mkinitfs -t /opt/mkinitfs/tmp -k -o /boot/initramfs-dropbear
+* Create a new initramfs: ```mkinitfs -t /opt/mkinitfs/tmp -k -o /boot/initramfs-dropbear```
 * Reboot
