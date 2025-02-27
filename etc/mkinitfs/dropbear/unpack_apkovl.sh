@@ -55,8 +55,9 @@ unpack_apkovl_dropbear() {
                         chmod 0600 /root/.ssh/authorized_keys
                 fi
                 if [ -s /etc/mkinitfs/dropbear/passwd ]; then
-                        local pass=`cat /etc/mkinitfs/dropbear/passwd`
-			printf "%s\n%s\n" "$pass" "$pass" | passwd
+                         ls -lha /etc/passwd
+                         cp /etc/mkinitfs/dropbear/passwd /etc
+                         ls -lha /etc/passwd
                 fi
                 ovl="$ovl" sysroot="$sysroot" repofile="$repofile" /usr/sbin/dropbear \
                          -r /etc/mkinitfs/dropbear/dropbear_rsa_host_key \
